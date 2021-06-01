@@ -1,0 +1,16 @@
+// Atualizando o nome do autor
+db.infoAutores.update({
+    nome: "Gabriel Ferreira"
+}, {
+    $set: {
+        nome: "Gabs Ferreira"
+    }
+})
+
+db.artigos.updateMany({
+    "autor.nome": "Gabriel Ferreira"
+}, {
+    $set: {
+        "autor.nome": "Gabs Ferreira"
+    }
+})
