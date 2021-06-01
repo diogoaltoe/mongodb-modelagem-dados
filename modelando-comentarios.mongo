@@ -1,0 +1,6 @@
+// Adicionar os comentários nos artigos
+db.artigos.updateMany({}, {
+    $set: {
+        comentarios: []
+    }
+})
