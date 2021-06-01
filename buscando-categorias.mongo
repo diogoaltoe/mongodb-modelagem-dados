@@ -3,3 +3,10 @@ db.artigos.find({ categorias: "Programação" })
 
 // Exibir estatísticas de execução
 db.artigos.find({ categorias: "Programação" }).explain("executionStats")
+
+
+// Criar um índice para as categorias
+db.artigos.createIndex({ categorias: 1 });
+
+// Exibir os índices
+db.artigos.getIndexes();
