@@ -1,0 +1,5 @@
+// Buscar pela categoria de programação
+db.artigos.find({ categorias: "Programação" })
+
+// Exibir estatísticas de execução
+db.artigos.find({ categorias: "Programação" }).explain("executionStats")
