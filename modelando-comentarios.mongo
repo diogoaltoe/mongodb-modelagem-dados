@@ -179,4 +179,40 @@ db.artigos.find({
 
         db.artigos.save(artigo);
     }
-)
+);
+
+// Inserindo um novo comentário
+db.artigos.update({
+    slug: "visualizando-dados-de-frequencia"
+}, {
+    $pop: {
+        comentarios: 1
+    }
+});
+
+var documento = db.artigos.findOneAndUpdate({
+    slug: "visualizando-dados-de-frequencia"
+}, {
+    $push: {
+        comentarios: {
+            $each: [
+                {
+                    nome: "Giovanni",
+                    email: "giovanni@alura.com.br",
+                    texto: "Gostei do artigo!",
+                    data: ISODate('2019-09-24')
+                }
+            ],
+            $position: 0
+        }
+    }
+}, { returnNewDocument: true });
+
+// Inserir o comentário na coleção de comentários
+db.comentarios.insertOne({
+    id_artigo: documento._id,
+    nome: "Giovanni",
+    email: "giovanni@alura.com.br",
+    texto: "Gostei do artigo!",
+    data: ISODate('2019-09-24')
+});
