@@ -1,0 +1,2 @@
+// Criar um índice para a slug, só que ele terá a propriedade de único, para que nenhum outro artigo na coleção tenha a mesma slug
+db.artigos.createIndex({ slug: 1 }, { unique: true });
