@@ -1,0 +1,14 @@
+// Buscando o artigo pela slug
+db.autores.find({ "artigos.slug": "projeto-caelum-nas-faculdades" })
+
+// Buscando o artigo pela slug, mas retornando apenas o título e o conteúdo
+db.autores.find(
+    { "artigos.slug": "projeto-caelum-nas-faculdades" }, 
+    { "artigos.titulo": 1, "artigos.conteudo": 1 }
+)
+
+// Buscando todos os artigos do Gabriel Ferreira e retornando apenas o título e o conteúdo
+db.autores.find(
+    { nome: "Gabriel Ferreira" },
+    { "artigos.titulo": 1, "artigos.conteudo": 1 }
+)
