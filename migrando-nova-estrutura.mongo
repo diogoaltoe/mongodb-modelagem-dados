@@ -1,0 +1,28 @@
+// Alteração da estrutura dos documentos
+db.autores.aggregate([
+    {
+        $unwind: "$artigos"
+    },
+    {
+        $project: {
+            _id: 0,
+            "autor.nome": "$nome",
+            "autor.descricao": "$descricao",
+            "autor.email": "$email",
+            "autor.senha": "$senha",
+            slug: "$artigos.slug",
+            titulo: "$artigos.titulo",
+            conteudo: "$artigos.conteudo",
+            dataCriado: "$artigos.dataCriado"
+        }
+    },
+    {
+        $out: "artigos"
+    }
+])
+
+// Apagando collection autores
+db.autores.drop();
+
+// Lista as collections
+db.getCollectionNames();
