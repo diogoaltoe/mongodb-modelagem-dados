@@ -1,0 +1,33 @@
+// Separar as informações do autor em uma nova coleção
+db.artigos.aggregate([
+    {
+        $group: {
+            _id: "$autor.email",
+            nome: { $first: "$autor.nome" },
+            email: { $first: "$autor.email" },
+            descricao: { $first: "$autor.descricao" },
+            senha: { $first: "$autor.senha" },
+        }
+    }, {
+        $project: { 
+            _id: 0 
+        }
+    }, {
+        $out: "infoAutores"
+    }
+])
+
+// Remover o email e a senha da coleção de artigos
+// e adicionar o ObjectId do documento que contém as informações do autor
+db.artigos.find({}).forEach(
+    function( artigo ) {
+        var infoAutor = db.infoAutores.findOne({ email: artigo.autor.email });
+        
+        artigo.autor.id_info = infoAutor._id;
+
+        delete artigo.autor.email;
+        delete artigo.autor.senha;
+
+        db.artigos.save(artigo);
+    }
+)
